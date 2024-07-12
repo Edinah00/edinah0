@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>To do lists</title>
+    <style>
+      /* style.css */
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.todo {
+    background-color: #fff;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+input[type="text"] {
+    width: calc(100% - 90px);
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+li:hover {
+    transform: scale(1.02);
+}
+
+button.deleteButton, button.doneButton {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.deleteButton:hover, button.doneButton:hover {
+    background-color: #f44336;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+input[type="text"].timerInput {
+    flex: 1;
+    margin-left: 10px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"].timerInput:focus {
+    border-color: #4CAF50;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="todo">
+        <h1>Ma liste de tâches</h1>
+        <input type="text" id="taskInput" placeholder="Ajouter une nouvelle tâche">
+       
+        <button onclick="addTask()">Ajouter</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+      let taskInput = document.getElementById('taskInput');
+let taskList = document.getElementById('taskList');
+
+function addTask() {
+    let taskText = taskInput.value.trim();
+    if (taskText !== '') {
+        let taskItem = document.createElement('li');
+        taskItem.textContent = taskText;
+
+        let doneButton = document.createElement('button');
+        doneButton.textContent = 'Terminé';
+        doneButton.className = 'doneButton';
+        doneButton.onclick = function () {
+            taskItem.classList.toggle('completed');
+        };
+
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Supprimer';
+        deleteButton.className = 'deleteButton';
+        deleteButton.onclick = function () {
+            taskItem.remove();
+        };
+
+        let timerInput = document.createElement('input');
+        timerInput.type = 'text';
+        timerInput.className = 'timerInput';
+        timerInput.placeholder = 'Temps (hh:mm:ss)';
+
+        taskItem.appendChild(timerInput);
+        taskItem.appendChild(doneButton);
+        taskItem.appendChild(deleteButton);
+
+        taskList.appendChild(taskItem);
+        taskInput.value = '';
+    }
+}
+    </script>
+</body>
+</html>
